@@ -26,42 +26,10 @@ namespace Vistas
 
             if (!IsPostBack)
             {
-                ObtenerTurnoMedico();
+                
             }
         }
 
-        private void ObtenerTurnoMedico()
-        {
-            int legajo = ObtenerLegajoMedicoPorUsuario(Session["Nombre"].ToString());
-
-            if (legajo <= 0)
-            {
-                GridView1.DataSource = null;
-                GridView1.DataBind();
-                return;
-            }
-
-            DataTable dt = clinica.obtenerTurnosPorMedico(legajo);
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
-        }
-
-        private int ObtenerLegajoMedicoPorUsuario(string nombreUsuario)
-        {
-            string sql = @"
-                SELECT M.Legajo_Medico
-                FROM Medico M
-                INNER JOIN Usuario U ON U.Id_Usuario = M.Id_Usuario
-                WHERE U.Nombre_Usuario = @nombreUsuario AND M.Actividad = 1";
-
-            SqlCommand cmd = new SqlCommand(sql);
-            cmd.Parameters.AddWithValue("@nombreUsuario", nombreUsuario);
-
-            DataTable dt = conexion.getTablaConParametro(cmd);
-            if (dt == null || dt.Rows.Count == 0) return 0;
-
-            return Convert.ToInt32(dt.Rows[0]["Legajo_Medico"]);
-        }
 
         private void ActualizarTurno(int idTurno, int estado, string observaciones)
         {
@@ -73,13 +41,13 @@ namespace Vistas
         protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
             GridView1.EditIndex = e.NewEditIndex;
-            ObtenerTurnoMedico();
+            
         }
 
         protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             GridView1.EditIndex = -1;
-            ObtenerTurnoMedico();
+            
         }
 
         protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -95,13 +63,13 @@ namespace Vistas
             ActualizarTurno(idTurno, estado, observaciones);
 
             GridView1.EditIndex = -1;
-            ObtenerTurnoMedico();
+            
         }
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;
-            ObtenerTurnoMedico();
+          
         }
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -143,5 +111,34 @@ namespace Vistas
             Response.Redirect("InformeAsistencias.aspx");
         }
 
+        protected void btnMostrarTodos_Click(object sender, EventArgs e)
+        {
+            txtFiltro.Text = "";
+            ddlFiltro.SelectedIndex = 0; 
+            
+        }
+
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+          
+            if (ddlMedicos.SelectedValue == "0" || string.IsNullOrEmpty(ddlMedicos.SelectedValue))
+            {
+               
+                GridView1.DataSource = null;
+                GridView1.DataBind();
+                return;
+            }
+
+            int legajo = int.Parse(ddlMedicos.SelectedValue);
+            int criterio = int.Parse(ddlFiltro.SelectedValue);
+            string texto = txtFiltro.Text.Trim(); 
+
+           
+            DataTable dt = clinica.FiltrarYOrdenarTurnos(legajo, criterio, texto);
+
+           
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
+        }
     }
 }

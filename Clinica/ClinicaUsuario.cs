@@ -217,7 +217,7 @@ namespace Clinica
             return dao.getTablaMedico(cmd);
         }
 
-
+        
         public bool actualizarPaciente(Paciente paciente)
         {
             return dao.ActualizarPaciente(paciente);
@@ -265,6 +265,62 @@ namespace Clinica
             return dao.ExisteMedico(m);
         }
 
+
+        public DataTable FiltrarYOrdenarTurnos(int legajo, int criterio, string textoBuscar)
+        {
+         
+            string sql = @"SELECT 
+                    T.ID_Turno,
+                  
+                    CONCAT(FORMAT(T.dia, 'dd/MM/yyyy'), ' ', LEFT(T.horario, 5)) AS TurnoFecha,
+                    
+                   
+                    CONCAT(P.Apellido_Paciente, ', ', P.Nombre_Paciente) AS Paciente,
+                    
+                    CASE 
+                        WHEN T.Estado_Turno = 0 THEN 'Pendiente'
+                        WHEN T.Estado_Turno = 1 THEN 'Presente'
+                        WHEN T.Estado_Turno = 2 THEN 'Ausente'
+                    END AS EstadoDescripcion,
+                    
+                    T.Observaciones,
+                    T.Estado_Turno 
+                   FROM Turno T
+                   INNER JOIN Paciente P ON T.DNI_paciente = P.DNI_Paciente
+                   WHERE T.Legajo_Medico = @Legajo "; 
+
+            
+            if (criterio == 1 && !string.IsNullOrEmpty(textoBuscar))
+            {
+                sql += " AND T.DNI_paciente LIKE @texto ";
+            }
+
+           
+            string orderBy = "";
+            switch (criterio)
+            {
+                case 2: 
+                    orderBy = " ORDER BY T.Estado_Turno ASC, T.dia DESC";
+                    break;
+                default: 
+                    orderBy = " ORDER BY T.dia DESC, T.horario ASC";
+                    break;
+            }
+
+            sql += orderBy;
+
+           
+            SqlCommand cmd = new SqlCommand(sql);
+            cmd.Parameters.AddWithValue("@Legajo", legajo);
+
+            if (criterio == 1 && !string.IsNullOrEmpty(textoBuscar))
+            {
+                cmd.Parameters.AddWithValue("@texto", "%" + textoBuscar + "%");
+            }
+
+           
+            return dao.getTablaTurnos(cmd);
+        }
         public int agregarMedico(Medico m)
         {
             if (existeMedico(m))

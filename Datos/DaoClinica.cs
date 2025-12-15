@@ -33,6 +33,11 @@ namespace Datos
             DataTable table = conexion.getTabla(consultaSql);
             return table;
         }
+        public DataTable getTablaTurnos(SqlCommand comando)
+        {
+            
+            return conexion.getTablaConParametro(comando);
+        }
         public DataTable getTablaMedico(SqlCommand comando)
         {
             DataTable table = conexion.getTablaConParametro(comando);
@@ -197,6 +202,7 @@ namespace Datos
             return idUsuarioNuevo;
         }
 
+      
         public bool EliminarMedico(int legajo)
         {
             string consultaSQL = "UPDATE Medico SET Actividad = 0 WHERE Legajo_Medico = @legajo";
@@ -442,5 +448,7 @@ namespace Datos
 
             return conexion.getTablaConParametro(cmd);
         }
+
+
     }
 }
