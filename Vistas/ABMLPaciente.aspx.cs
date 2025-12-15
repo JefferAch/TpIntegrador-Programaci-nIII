@@ -54,7 +54,6 @@ namespace Vistas
 
             DropDownList ddlProvincia = (DropDownList)gvPacientes.Rows[e.NewEditIndex].FindControl("ddlProvinciaEdit");
 
-            //ARREGLAR RELACION ENTRE CAPAS, NO SE PUEDE INSTANCIA LA CAPA DaoClinica.
             DaoClinica dao = new DaoClinica();
 
             ddlProvincia.DataSource = dao.getProvincias();
