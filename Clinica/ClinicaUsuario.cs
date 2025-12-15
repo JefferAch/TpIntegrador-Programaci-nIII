@@ -149,25 +149,24 @@ namespace Clinica
 
         public DataTable FiltrarMedicos(string textoBuscar, int queFiltrar, int comoOrdenar)
         {
-         
             string Base = @"SELECT M.Legajo_Medico, M.Nombre_Medico, M.Apellido_Medico, M.Correo, M.Telefono_Medico, " +
                 "E.Descripcion_Especialidad AS Especialidad, STRING_AGG(D.Nombre_Dia, ', ') AS Dia_Habil, " +
                 "CONCAT(CONVERT(VARCHAR(5), M.HorarioInicio), ' - ', CONVERT(VARCHAR(5), M.HorarioFinal)) AS Horario_Atencion, " +
-                "M.DNI_Medico, M.Sexo, M.Nacionalidad_Med, M.Birthdate, M.Direccion " +
+                "M.DNI_Medico, M.Sexo, M.Nacionalidad_Med, M.Birthdate, M.Direccion, " +
+                "M.Id_Provincia, M.Id_Localidad, P.Nombre_Provincia, L.Nombre_Localidad " +
                 "FROM Medico M " +
                 "INNER JOIN Medico_DiasHabiles MDH ON M.Legajo_Medico = MDH.Legajo_Medico " +
                 "INNER JOIN Dias D ON MDH.ID_Dia = D.ID_Dia " +
-                "INNER JOIN Especialidad E ON  M.Cod_Especialidad = E.Cod_Especialidad ";
+                "INNER JOIN Especialidad E ON M.Cod_Especialidad = E.Cod_Especialidad " +
+                "INNER JOIN Provincia P ON M.Id_Provincia = P.Id_Provincia " +
+                "INNER JOIN Localidad L ON M.Id_Localidad = L.Id_Localidad ";
 
             string GroupBy = @"GROUP BY M.Legajo_Medico, M.Nombre_Medico, M.Apellido_Medico, M.Correo, M.Telefono_Medico, " +
                 "E.Descripcion_Especialidad, M.HorarioInicio, M.HorarioFinal, M.DNI_Medico, M.Sexo, M.Nacionalidad_Med, " +
-                "M.Birthdate, M.Direccion";
-
+                "M.Birthdate, M.Direccion, M.Id_Provincia, M.Id_Localidad, P.Nombre_Provincia, L.Nombre_Localidad";
 
             string where = "";
-            SqlCommand cmd = new SqlCommand(); 
 
-           
             if (!string.IsNullOrEmpty(textoBuscar))
             {
                 switch (queFiltrar)
@@ -184,50 +183,41 @@ namespace Clinica
                     case 3:
                         where = "WHERE E.Descripcion_Especialidad LIKE @textoBuscar";
                         break;
-
-
-                       
-                }
-
-
-                if (!string.IsNullOrEmpty(where))
-                {
-                    cmd.Parameters.AddWithValue("@textoBuscar", "%" + textoBuscar + "%");
                 }
             }
 
-            
             string orderBy = "";
             switch (comoOrdenar)
             {
-                case 0: 
+                case 0:
                     orderBy = "ORDER BY M.Legajo_Medico";
                     break;
-                case 1: 
+                case 1:
                     orderBy = "ORDER BY M.Nombre_Medico";
                     break;
-                case 2: 
+                case 2:
                     orderBy = "ORDER BY M.Apellido_Medico";
                     break;
-                case 3: 
+                case 3:
                     orderBy = "ORDER BY E.Descripcion_Especialidad";
                     break;
                 default:
-                    
                     orderBy = "ORDER BY M.Legajo_Medico";
                     break;
             }
 
             string consultaCompleta = Base + " " + where + " " + GroupBy + " " + orderBy;
-            SqlCommand cmd2 = new SqlCommand(consultaCompleta);
+            SqlCommand cmd = new SqlCommand(consultaCompleta);
 
-            cmd2.Parameters.AddWithValue("@textoBuscar", "%" + textoBuscar + "%");
+            if (!string.IsNullOrEmpty(where))
+            {
+                cmd.Parameters.AddWithValue("@textoBuscar", "%" + textoBuscar + "%");
+            }
 
-          
-            return dao.getTablaMedico(cmd2);
+            return dao.getTablaMedico(cmd);
         }
 
-       
+
         public bool actualizarPaciente(Paciente paciente)
         {
             return dao.ActualizarPaciente(paciente);
