@@ -428,5 +428,19 @@ namespace Datos
             }
         }
 
+        public DataTable ObtenerInformeAsistencias(DateTime desde, DateTime hasta)
+        {
+            string sql = @"SELECT T.dia, T.horario, M.Nombre_Medico + ' ' + M.Apellido_Medico AS Medico, P.nombre_paciente + ' ' + P.apellido_paciente AS Paciente, T.Estado_Turno, T.Observaciones
+            FROM Turno T
+            INNER JOIN Medico M ON T.Legajo_Medico = M.Legajo_Medico
+            INNER JOIN Paciente P ON T.DNI_paciente = P.DNI_Paciente
+            WHERE T.dia BETWEEN @desde AND @hasta";
+
+            SqlCommand cmd = new SqlCommand(sql);
+            cmd.Parameters.AddWithValue("@desde", desde);
+            cmd.Parameters.AddWithValue("@hasta", hasta);
+
+            return conexion.getTablaConParametro(cmd);
+        }
     }
 }

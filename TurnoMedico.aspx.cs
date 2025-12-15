@@ -138,10 +138,5 @@ namespace Vistas
             }
         }
 
-        protected void btnInformeAsistencias_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("InformeAsistencias.aspx");
-        }
-
     }
 }
