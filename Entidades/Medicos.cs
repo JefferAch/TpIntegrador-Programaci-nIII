@@ -38,7 +38,7 @@ namespace Entidades
             ApellidoMedico = apellMed;
             Correo = correo;
             TelefonoMedico = TelefonoMed;
-            Especialidad = especialidad;
+            CodEspecialidad = especialidad;
             HoraInicial = horaInicio;
             HoraFinal = horaFinal;
             DniMedico = DniMed;

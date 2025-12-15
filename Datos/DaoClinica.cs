@@ -55,6 +55,7 @@ namespace Datos
             sqlCommand.Parameters.AddWithValue("@apellidoMedico", medico.ApellidoMedico);
             sqlCommand.Parameters.AddWithValue("@correo", medico.Correo);
             sqlCommand.Parameters.AddWithValue("@telefono", medico.TelefonoMedico);
+            sqlCommand.Parameters.AddWithValue("@especialidad", medico.CodEspecialidad);
             sqlCommand.Parameters.AddWithValue("@horaInicial", medico.HoraInicial);
             sqlCommand.Parameters.AddWithValue("@horaFinal", medico.HoraFinal);
             sqlCommand.Parameters.AddWithValue("@dniMedico", medico.DniMedico);
@@ -62,6 +63,8 @@ namespace Datos
             sqlCommand.Parameters.AddWithValue("@nacionalidadMed", medico.NacionalidadMed);
             sqlCommand.Parameters.AddWithValue("@nacimiento", medico.Birthdate);
             sqlCommand.Parameters.AddWithValue("@direccion", medico.Direccion);
+            sqlCommand.Parameters.AddWithValue("@provincia", medico.IdProvincia);
+            sqlCommand.Parameters.AddWithValue("@localidad", medico.IdLocalidad);
             sqlCommand.Parameters.AddWithValue("@legajoMedico", medico.LegajoMedico);
         }
         private void EditarParametrosPaciente(ref SqlCommand sqlCommand, Paciente paciente)
@@ -379,7 +382,7 @@ namespace Datos
 
         public bool ActualizarMedico(Medico medico)
         {
-            string consultaSQL = @"UPDATE Medico SET Nombre_Medico = @nombreMedico, Apellido_Medico = @apellidoMedico, Correo = @correo, Telefono_Medico = @telefono, HorarioInicio = @horaInicial, HorarioFinal = @horaFinal, DNI_Medico = @dniMedico, Sexo = @sexo, Nacionalidad_Med = @nacionalidadMed, Birthdate = @nacimiento, Direccion = @direccion WHERE Legajo_Medico = @legajoMedico";
+            string consultaSQL = @"UPDATE Medico SET Nombre_Medico = @nombreMedico, Apellido_Medico = @apellidoMedico, Correo = @correo, Telefono_Medico = @telefono, Cod_Especialidad = @especialidad, HorarioInicio = @horaInicial, HorarioFinal = @horaFinal, DNI_Medico = @dniMedico, Sexo = @sexo, Nacionalidad_Med = @nacionalidadMed, Birthdate = @nacimiento, Direccion = @direccion, Id_Provincia = @provincia, Id_Localidad = @localidad WHERE Legajo_Medico = @legajoMedico";
             SqlCommand sqlCommand = new SqlCommand(consultaSQL);
             EditarParametros(ref sqlCommand, medico);
             int filas = conexion.ejecutarComando(sqlCommand);

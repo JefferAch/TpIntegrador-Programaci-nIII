@@ -91,7 +91,7 @@
     </asp:TemplateField>
     <asp:TemplateField HeaderText="Especialidad">
         <EditItemTemplate>
-            <asp:DropDownList ID="ddlEspecialidadEdit" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlProvinciaEdit_SelectedIndexChanged" Width="145px">
+            <asp:DropDownList ID="ddlEspecialidadEdit" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlEspecialidadEdit_SelectedIndexChanged" Width="145px">
             </asp:DropDownList>
         </EditItemTemplate>
         <ItemTemplate>

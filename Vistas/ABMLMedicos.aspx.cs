@@ -107,33 +107,31 @@ namespace Vistas
             gvMedicos.EditIndex = e.NewEditIndex;
             cargarTablaMedicos();
 
-            string provinciaPaciente = gvMedicos.DataKeys[e.NewEditIndex]["Id_Provincia"].ToString();
-            string localidadPaciente = gvMedicos.DataKeys[e.NewEditIndex]["Id_Localidad"].ToString();
+            string provinciaMedico = gvMedicos.DataKeys[e.NewEditIndex]["Id_Provincia"].ToString();
+            string localidadMedico = gvMedicos.DataKeys[e.NewEditIndex]["Id_Localidad"].ToString();
 
             DropDownList ddlProvincia = (DropDownList)gvMedicos.Rows[e.NewEditIndex].FindControl("ddlProvinciaEdit");
 
-            //ARREGLAR RELACION ENTRE CAPAS, NO SE PUEDE INSTANCIA LA CAPA DaoClinica.
-            DaoClinica dao = new DaoClinica();
 
-            ddlProvincia.DataSource = dao.getProvincias();
+            ddlProvincia.DataSource = clinica.obtenerProvincias();
             ddlProvincia.DataTextField = "Nombre_Provincia";
             ddlProvincia.DataValueField = "Id_Provincia";
             ddlProvincia.DataBind();
 
-            ddlProvincia.SelectedValue = provinciaPaciente;
+            ddlProvincia.SelectedValue = provinciaMedico;
 
             DropDownList ddlLocalidad = (DropDownList)gvMedicos.Rows[e.NewEditIndex].FindControl("ddlLocalidadEdit");
 
-            ddlLocalidad.DataSource = dao.getLocalidades(int.Parse(provinciaPaciente));
+            ddlLocalidad.DataSource = clinica.obtenerLocalidades(provinciaMedico);
             ddlLocalidad.DataTextField = "Nombre_Localidad";
             ddlLocalidad.DataValueField = "Id_Localidad";
             ddlLocalidad.DataBind();
 
-            ddlLocalidad.SelectedValue = localidadPaciente;
+            ddlLocalidad.SelectedValue = localidadMedico;
 
             DropDownList ddlEspecialidad = (DropDownList)gvMedicos.Rows[e.NewEditIndex].FindControl("ddlEspecialidadEdit");
 
-            ddlEspecialidad.DataSource = dao.getEspecialidades();
+            ddlEspecialidad.DataSource = clinica.obtenerEspecialidades();
             ddlEspecialidad.DataTextField = "Descripcion_Especialidad";
             ddlEspecialidad.DataValueField = "Cod_Especialidad";
             ddlEspecialidad.DataBind();
@@ -179,6 +177,11 @@ namespace Vistas
             ddlLocalidad.DataBind();
 
             ddlLocalidad.Items.Insert(0, new ListItem("Seleccione una localidad", "0"));
+        }
+
+        protected void ddlEspecialidadEdit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

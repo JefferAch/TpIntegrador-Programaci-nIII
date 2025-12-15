@@ -232,7 +232,19 @@ namespace Clinica
         {
             return dao.ActualizarPaciente(paciente);
         }
-       
+
+        public DataTable obtenerEspecialidades() {
+            return dao.getEspecialidades();
+        }
+
+        public DataTable obtenerProvincias()
+        {
+            return dao.getProvincias();
+        }
+
+        public DataTable obtenerLocalidades(string provinciaMedico) {
+            return dao.getLocalidades(int.Parse(provinciaMedico));
+                }
 
         public bool existePaciente(Paciente p)
         {
