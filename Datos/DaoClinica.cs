@@ -14,7 +14,7 @@ namespace Datos
     public class DaoClinica
     {
         ConexionClinica conexion = new ConexionClinica();
-        public bool existeUsuario(string name, string password, byte tipo/*, ref SqlCommand sqlCommand*/)
+        public bool existeUsuario(string name, string password, byte tipo)
         {
             string consulta = "SELECT * FROM Usuario WHERE Nombre_Usuario = @nombreUsuario AND Contraseña = @contrasenia AND Tipo_Usuario = @Tipo_Usuario ";
             SqlCommand sqlCommand = new SqlCommand(consulta);
@@ -22,9 +22,7 @@ namespace Datos
             sqlCommand.Parameters.AddWithValue("@contrasenia", password);
             sqlCommand.Parameters.AddWithValue("@Tipo_Usuario", tipo);
 
-            /*SqlParameter sqlparameter = new SqlParameter();
-            sqlparameter = sqlCommand.Parameters.Add("@idUsuario", System.Data.SqlDbType.VarChar, 30);
-            sqlparameter = sqlCommand.Parameters.Add("@password", System.Data.SqlDbType.VarChar, 30);*/
+           
             return conexion.existe(sqlCommand);
         }
 
