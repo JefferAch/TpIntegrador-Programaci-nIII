@@ -316,5 +316,10 @@ namespace Clinica
         {
             return dao.ActualizarTurno(idTurno, estado, observaciones);
         }
+
+        public DataTable ObtenerInformeAsistencias(DateTime desde, DateTime hasta)
+        {
+            return dao.ObtenerInformeAsistencias(desde, hasta);
+        }
     }
 }
