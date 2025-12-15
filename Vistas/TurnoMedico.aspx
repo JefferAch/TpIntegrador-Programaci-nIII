@@ -117,7 +117,7 @@
     OnRowEditing="GridView1_RowEditing"
     OnRowUpdating="GridView1_RowUpdating"
     OnRowCancelingEdit="GridView1_RowCancelingEdit"
-    OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+    OnPageIndexChanging="GridView1_PageIndexChanging">
 
     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 
@@ -160,7 +160,12 @@
         </asp:TemplateField>
         <asp:TemplateField HeaderText="Fecha">
             <ItemTemplate>
-                <asp:Label ID="lb_It_Fecha" runat="server" Text='<%# Bind ("dia") %>'></asp:Label>
+                <asp:Label ID="lb_It_Fecha" runat="server" Text='<%# Bind ("TurnoFecha") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="DNI">
+            <ItemTemplate>
+                <asp:Label ID="lb_It_Dni" runat="server" Text='<%# Bind ("DNI_Paciente") %>'></asp:Label>
             </ItemTemplate>
         </asp:TemplateField>
     </Columns>
