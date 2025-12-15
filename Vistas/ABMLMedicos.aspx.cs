@@ -58,7 +58,7 @@ namespace Vistas
 
         protected void gvMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void gvMedicos_RowDeleting(object sender, GridViewDeleteEventArgs e)
