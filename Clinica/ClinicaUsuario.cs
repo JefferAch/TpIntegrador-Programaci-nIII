@@ -280,33 +280,30 @@ namespace Clinica
                   END AS EstadoDescripcion,
                   T.Observaciones,
                   T.Estado_Turno,
-                  T.DNI_paciente -- Traemos el DNI por si acaso, aunque ya lo usamos en el Join
+                  T.DNI_paciente 
                   FROM Turno T
                   INNER JOIN Paciente P ON T.DNI_paciente = P.DNI_Paciente
                   WHERE T.Legajo_Medico = @Legajo ";
 
-            // 2. LÓGICA DE BÚSQUEDA (SIEMPRE POR NOMBRE/APELLIDO)
-            // Esto respeta lo que dijiste: "La barra de búsqueda siempre busca por nombre o apellido"
+           
             if (!string.IsNullOrEmpty(textoBuscar))
             {
                 sql += " AND (P.Nombre_Paciente LIKE @texto OR P.Apellido_Paciente LIKE @texto) ";
             }
 
-            // 3. LÓGICA DE ORDENAMIENTO (ORDER BY)
+            
             string orderBy = "";
             switch (criterio)
             {
-                case 1: // DNI del Paciente (¡LO QUE FALTABA!)
-                        // Ordena numéricamente por DNI y luego por fecha
+                case 1:
                     orderBy = " ORDER BY T.DNI_paciente ASC, T.dia DESC";
                     break;
 
-                case 2: // Estado
-                        // Agrupa por estado (0, 1, 2) y dentro de cada estado por fecha
+                case 2: 
                     orderBy = " ORDER BY T.Estado_Turno ASC, T.dia DESC";
                     break;
 
-                default: // (Caso 0 o Default): Ordenar por Fecha
+                default: 
                     orderBy = " ORDER BY T.dia DESC, T.horario ASC";
                     break;
             }
