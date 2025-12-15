@@ -12,18 +12,11 @@
         }
         .auto-style2 {
         }
-        .auto-style3 {
-            height: 30px;
-        }
         .auto-style4 {
             width: 1057px;
             height: 30px;
         }
         .auto-style5 {
-        }
-        .auto-style6 {
-            height: 30px;
-            width: 16px;
         }
         .auto-style7 {
             width: 148px;
@@ -41,25 +34,7 @@
             width: 78px;
             height: 24px;
         }
-        .auto-style11 {
-            width: 16px;
-            height: 24px;
-        }
-        .auto-style12 {
-            height: 24px;
-        }
-        .auto-style13 {
-            width: 10px;
-        }
-        .auto-style14 {
-            height: 30px;
-            width: 10px;
-        }
-        .auto-style15 {
-            height: 24px;
-            width: 10px;
-        }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -113,7 +88,7 @@
     OnRowEditing="GridView1_RowEditing"
     OnRowUpdating="GridView1_RowUpdating"
     OnRowCancelingEdit="GridView1_RowCancelingEdit"
-    OnPageIndexChanging="GridView1_PageIndexChanging">
+    OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
 
     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 
@@ -153,6 +128,11 @@
             <EditItemTemplate>
                 <asp:TextBox ID="txtObservacionEdit" runat="server" Width="220px"></asp:TextBox>
             </EditItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="Fecha">
+            <ItemTemplate>
+                <asp:Label ID="lb_It_Fecha" runat="server" Text='<%# Bind ("dia") %>'></asp:Label>
+            </ItemTemplate>
         </asp:TemplateField>
     </Columns>
 
