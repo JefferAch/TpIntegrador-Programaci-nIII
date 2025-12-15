@@ -27,7 +27,7 @@ namespace Vistas
 
         protected void btnTurno_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AsignarTurno.aspx");
+            Response.Redirect("Turnos.aspx");
         }
     }
 }

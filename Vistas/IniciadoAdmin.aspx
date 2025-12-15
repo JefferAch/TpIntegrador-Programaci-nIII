@@ -71,7 +71,7 @@
                         <asp:Button ID="btnABMLMedicos" runat="server" BackColor="#6666FF" ForeColor="White" Height="68px" style="margin-left: 429px" Text="ABML Medicos" Width="197px" OnClick="btnABMLMedicos_Click" />
                     </td>
                     <td class="auto-style6">
-                        <asp:Button ID="btnTurno" runat="server" BackColor="#6666FF" ForeColor="White" Height="68px" OnClick="btnTurno_Click" style="margin-left: 559px" Text="Asignacion de turnos" Width="197px" />
+                        <asp:Button ID="btnTurno" runat="server" BackColor="#6666FF" ForeColor="White" Height="68px" OnClick="btnTurno_Click" style="margin-left: 559px" Text="Turnos" Width="197px" />
                     </td>
                 </tr>
                 <tr>

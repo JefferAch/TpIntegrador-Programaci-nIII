@@ -19,7 +19,7 @@
 
 <body>
 <form id="form1" runat="server">
-    <div style="height:57px; background-color:#b71c1c; padding:15px;">
+    <div style="height:18px; background-color:#b71c1c; padding:15px;">
         <asp:Label ID="lblBienvenido" runat="server"
             Text="Bienvenido"
             ForeColor="White" />
@@ -141,7 +141,7 @@
             <td class="auto-style6">
                 <asp:HyperLink ID="hlVolver" runat="server"
                     NavigateUrl="IniciadoAdmin.aspx"
-                    Text="Volver al menú principal"
+                    Text="Volver al menú de administrador."
                     ForeColor="#3366FF" />
             </td>
             <td class="auto-style2"></td>

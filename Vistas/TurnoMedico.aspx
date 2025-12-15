@@ -63,6 +63,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div>
         <div style="height: 57px; margin-bottom: 1px;  background-color: #b71c1c">
             <br />
                 <asp:Label ID="lblBienvenida" runat="server" ForeColor="White"  Text="    Bienvenido    " style="margin-left: 21px" Width="84px"></asp:Label>
@@ -72,7 +73,6 @@
 <br />
 
         </div>
-        <div>
             <table class="auto-style1">
                 <tr>
                     <td class="auto-style5" rowspan="6">&nbsp;</td>
@@ -172,9 +172,7 @@
                 </tr>
                 <tr>
                     <td class="auto-style2" align ="center" colspan="4">
-        <asp:Button ID="btnInformeAsistencias" runat="server" BackColor="#6666FF" ForeColor="White" Height="68px" style="text-align:center; margin-top:20px;" Text="Informe de Asistencias" Width="197px" OnClick="btnInformeAsistencias_Click" />
-
-                    </td>
+                        &nbsp;</td>
                 </tr>
             </table>
         </div>

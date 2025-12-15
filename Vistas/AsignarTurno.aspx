@@ -33,8 +33,9 @@
 <body>
     <form id="form1" runat="server">
         <div style="height: 57px; margin-bottom: 1px; background-color: #b71c1c">
+            <br />
             <asp:Label ID="lblBienvenidoAT"  runat="server" Text="Bienvenido" ForeColor="White"></asp:Label>
-            <asp:Label style="margin-left: 10px" ID="lblUsuarioAT" runat="server" ForeColor="White" Text="   USUARIO"></asp:Label>
+            <asp:Label style="margin-left: 10px" ID="lblUsuario" runat="server" ForeColor="White" Text="   USUARIO"></asp:Label>
             
         </div>
     <p>
@@ -124,7 +125,7 @@
        
         <tr>
             <td class="auto-style5">
-                <asp:HyperLink ID="hpInicioAdmin" runat="server" NavigateUrl="~/IniciadoAdmin.aspx">Volver al Inicio de Administrador</asp:HyperLink>
+                <asp:HyperLink ID="hpInicioAdmin" runat="server" NavigateUrl="~/IniciadoAdmin.aspx">Volver al menú de administrador.</asp:HyperLink>
             </td>
             <td class="auto-style6">
                         <asp:Button style="text-align: center;" ID="btnAsignarTurno" runat="server" BackColor="#3366FF" ForeColor="White" Text="Asignar Turno" Width="202px" OnClick="btnAsignarTurno_Click" />

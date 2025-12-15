@@ -15,6 +15,8 @@ namespace Vistas
         {
             if (!IsPostBack)
             {
+                string nombreUsuario = Session["Nombre"].ToString();
+                lblUsuario.Text = nombreUsuario;
                 CargarEspecialidades();
                 CargarPacientes();
             }
