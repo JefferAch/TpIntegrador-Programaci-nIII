@@ -268,57 +268,60 @@ namespace Clinica
 
         public DataTable FiltrarYOrdenarTurnos(int legajo, int criterio, string textoBuscar)
         {
-         
-            string sql = @"SELECT 
-                    T.ID_Turno,
-                  
-                    CONCAT(FORMAT(T.dia, 'dd/MM/yyyy'), ' ', LEFT(T.horario, 5)) AS TurnoFecha,
-                    
-                   
-                    CONCAT(P.Apellido_Paciente, ', ', P.Nombre_Paciente) AS Paciente,
-                    
-                    CASE 
-                        WHEN T.Estado_Turno = 0 THEN 'Pendiente'
-                        WHEN T.Estado_Turno = 1 THEN 'Presente'
-                        WHEN T.Estado_Turno = 2 THEN 'Ausente'
-                    END AS EstadoDescripcion,
-                    
-                    T.Observaciones,
-                    T.Estado_Turno 
-                   FROM Turno T
-                   INNER JOIN Paciente P ON T.DNI_paciente = P.DNI_Paciente
-                   WHERE T.Legajo_Medico = @Legajo "; 
 
-            
-            if (criterio == 1 && !string.IsNullOrEmpty(textoBuscar))
+            string sql = @"SELECT 
+                  T.ID_Turno,
+                  CONCAT(FORMAT(T.dia, 'dd/MM/yyyy'), ' ', LEFT(T.horario, 5)) AS TurnoFecha,
+                  CONCAT(P.Apellido_Paciente, ', ', P.Nombre_Paciente) AS Paciente,
+                  CASE 
+                      WHEN T.Estado_Turno = 0 THEN 'Pendiente'
+                      WHEN T.Estado_Turno = 1 THEN 'Presente'
+                      WHEN T.Estado_Turno = 2 THEN 'Ausente'
+                  END AS EstadoDescripcion,
+                  T.Observaciones,
+                  T.Estado_Turno,
+                  T.DNI_paciente -- Traemos el DNI por si acaso, aunque ya lo usamos en el Join
+                  FROM Turno T
+                  INNER JOIN Paciente P ON T.DNI_paciente = P.DNI_Paciente
+                  WHERE T.Legajo_Medico = @Legajo ";
+
+            // 2. LÓGICA DE BÚSQUEDA (SIEMPRE POR NOMBRE/APELLIDO)
+            // Esto respeta lo que dijiste: "La barra de búsqueda siempre busca por nombre o apellido"
+            if (!string.IsNullOrEmpty(textoBuscar))
             {
-                sql += " AND T.DNI_paciente LIKE @texto ";
+                sql += " AND (P.Nombre_Paciente LIKE @texto OR P.Apellido_Paciente LIKE @texto) ";
             }
 
-           
+            // 3. LÓGICA DE ORDENAMIENTO (ORDER BY)
             string orderBy = "";
             switch (criterio)
             {
-                case 2: 
+                case 1: // DNI del Paciente (¡LO QUE FALTABA!)
+                        // Ordena numéricamente por DNI y luego por fecha
+                    orderBy = " ORDER BY T.DNI_paciente ASC, T.dia DESC";
+                    break;
+
+                case 2: // Estado
+                        // Agrupa por estado (0, 1, 2) y dentro de cada estado por fecha
                     orderBy = " ORDER BY T.Estado_Turno ASC, T.dia DESC";
                     break;
-                default: 
+
+                default: // (Caso 0 o Default): Ordenar por Fecha
                     orderBy = " ORDER BY T.dia DESC, T.horario ASC";
                     break;
             }
 
             sql += orderBy;
 
-           
+            // 4. PARÁMETROS
             SqlCommand cmd = new SqlCommand(sql);
             cmd.Parameters.AddWithValue("@Legajo", legajo);
 
-            if (criterio == 1 && !string.IsNullOrEmpty(textoBuscar))
+            if (!string.IsNullOrEmpty(textoBuscar))
             {
                 cmd.Parameters.AddWithValue("@texto", "%" + textoBuscar + "%");
             }
 
-           
             return dao.getTablaTurnos(cmd);
         }
         public int agregarMedico(Medico m)
