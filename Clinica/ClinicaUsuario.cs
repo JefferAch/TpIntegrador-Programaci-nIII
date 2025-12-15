@@ -271,7 +271,7 @@ namespace Clinica
          
             string sql = @"SELECT 
                     T.ID_Turno,
-                  
+                    T.DNI_Paciente,
                     CONCAT(FORMAT(T.dia, 'dd/MM/yyyy'), ' ', LEFT(T.horario, 5)) AS TurnoFecha,
                     
                    
