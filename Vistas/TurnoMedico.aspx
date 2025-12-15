@@ -117,7 +117,7 @@
     OnRowEditing="GridView1_RowEditing"
     OnRowUpdating="GridView1_RowUpdating"
     OnRowCancelingEdit="GridView1_RowCancelingEdit"
-    OnPageIndexChanging="GridView1_PageIndexChanging">
+    OnPageIndexChanging="GridView1_PageIndexChanging" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
 
     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
 
@@ -157,6 +157,11 @@
             <EditItemTemplate>
                 <asp:TextBox ID="txtObservacionEdit" runat="server" Width="220px"></asp:TextBox>
             </EditItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="Fecha">
+            <ItemTemplate>
+                <asp:Label ID="lb_It_Fecha" runat="server" Text='<%# Bind ("dia") %>'></asp:Label>
+            </ItemTemplate>
         </asp:TemplateField>
     </Columns>
 
