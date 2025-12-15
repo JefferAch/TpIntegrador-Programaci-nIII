@@ -11,7 +11,6 @@
             width: 100%;
         }
         .auto-style2 {
-            width: 1057px;
         }
         .auto-style3 {
             height: 30px;
@@ -21,7 +20,6 @@
             height: 30px;
         }
         .auto-style5 {
-            width: 16px;
         }
         .auto-style6 {
             height: 30px;
@@ -50,6 +48,17 @@
         .auto-style12 {
             height: 24px;
         }
+        .auto-style13 {
+            width: 10px;
+        }
+        .auto-style14 {
+            height: 30px;
+            width: 10px;
+        }
+        .auto-style15 {
+            height: 24px;
+            width: 10px;
+        }
     </style>
 </head>
 <body>
@@ -66,93 +75,110 @@
         <div>
             <table class="auto-style1">
                 <tr>
-                    <td class="auto-style5">&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td class="auto-style5" rowspan="6">&nbsp;</td>
                     <td class="auto-style2" colspan="4">&nbsp;</td>
-                    <td>
+                    <td rowspan="6">
                         &nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style5">&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
                     <td class="auto-style2" colspan="4">&nbsp;</td>
-                    <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style6"></td>
-                    <td class="auto-style3"></td>
-                    <td class="auto-style3"></td>
                     <td class="auto-style4" Align="center" colspan="4">
                         <asp:Label ID="lblTitulo" runat="server" Font-Bold="True" Font-Size="X-Large" Text="Turnos Asignados" ></asp:Label>
                     </td>
-                    <td class="auto-style3"></td>
                 </tr>
                 <tr>
-                    <td class="auto-style11"></td>
-                    <td class="auto-style12"></td>
-                    <td class="auto-style12"></td>
                     <td class="auto-style7">
-                        <asp:Label ID="lblBuscador" runat="server" Text="Barra de Busqueda:"></asp:Label>
-                    </td>
+                        &nbsp;</td>
                     <td class="auto-style9">
-                        <asp:TextBox ID="TextBox1" style="margin-left: 15px" runat="server" OnTextChanged="TextBox1_TextChanged" Width="164px"></asp:TextBox>
-                    </td>
+                        &nbsp;</td>
                     <td class="auto-style10">
-                        <asp:Label ID="lblFiltrado" runat="server" Text="Filtrar por:"></asp:Label>
-                    </td>
+                        &nbsp;</td>
                     <td class="auto-style8">
-                        <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" style="margin-left: 0px">
-                        </asp:DropDownList>
-                    </td>
-                    <td class="auto-style12"></td>
+                        &nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style5">&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
                     <td class="auto-style2" align ="center" colspan="4">
-                        <asp:GridView ID="GridView1" runat="server" Width="361px" AllowPaging="True" AutoGenerateEditButton="True" CellPadding="4" ForeColor="#333333" GridLines="None">
-                            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                            <Columns>
-                                <asp:TemplateField HeaderText="Turno">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lb_it_Turno" runat="server" Text='<%# Bind("ID_Turno") %>'></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Paciente">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lb_it_Paciente" runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Estado">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lb_it_Estado" runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Observacion">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lb_it_Observacion" runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                            <EditRowStyle BackColor="#999999" />
-                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                        </asp:GridView>
+                        <asp:GridView ID="GridView1" runat="server"
+    Width="361px"
+    AllowPaging="True"
+    AutoGenerateColumns="False"
+    AutoGenerateEditButton="True"
+    CellPadding="4"
+    ForeColor="#333333"
+    GridLines="None"
+    DataKeyNames="ID_Turno"
+    OnRowDataBound="GridView1_RowDataBound"
+    OnRowEditing="GridView1_RowEditing"
+    OnRowUpdating="GridView1_RowUpdating"
+    OnRowCancelingEdit="GridView1_RowCancelingEdit"
+    OnPageIndexChanging="GridView1_PageIndexChanging">
+
+    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+
+    <Columns>
+        <asp:TemplateField HeaderText="Turno">
+            <ItemTemplate>
+                <asp:Label ID="lb_it_Turno" runat="server" Text='<%# Bind("ID_Turno") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Paciente">
+  <ItemTemplate>
+    <asp:Label ID="lb_it_Paciente" runat="server" Text='<%# Bind("Paciente") %>'></asp:Label>
+  </ItemTemplate>
+</asp:TemplateField>
+
+
+        <asp:TemplateField HeaderText="Estado">
+            <ItemTemplate>
+                <asp:Label ID="lb_it_Estado" runat="server"></asp:Label>
+            </ItemTemplate>
+
+            <EditItemTemplate>
+                <asp:DropDownList ID="ddlEstadoEdit" runat="server">
+                    <asp:ListItem Text="Pendiente" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="Presente" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="Ausente" Value="2"></asp:ListItem>
+                </asp:DropDownList>
+            </EditItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="Observacion">
+            <ItemTemplate>
+                <asp:Label ID="lb_it_Observacion" runat="server"></asp:Label>
+            </ItemTemplate>
+
+            <EditItemTemplate>
+                <asp:TextBox ID="txtObservacionEdit" runat="server" Width="220px"></asp:TextBox>
+            </EditItemTemplate>
+        </asp:TemplateField>
+    </Columns>
+
+    <EditRowStyle BackColor="#999999" />
+    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+</asp:GridView>
+
                     </td>
-                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="auto-style2" align ="center" colspan="4">
+        <asp:Button ID="btnInformeAsistencias" runat="server" BackColor="#6666FF" ForeColor="White" Height="68px" style="text-align:center; margin-top:20px;" Text="Informe de Asistencias" Width="197px" OnClick="btnInformeAsistencias_Click" />
+
+                    </td>
                 </tr>
             </table>
         </div>
+
     </form>
 </body>
 </html>
